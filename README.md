@@ -1,15 +1,17 @@
-# Building a Modern Contact Center with Amazon Connect
+# Intro to Amazon Connect
 
 ## What are we going to build?
-Create a contact center that has the following functionality:
-1. Play a hot message if there is one.
-2. If a phone number has called before say "welcome back", if not, greet the caller.
-3. Ask the person if they would like to be called back later to respond to a survey after the call.
-4. Using their voice to choose, give them the option of waiting on hold, being called back later, or connected to the emergency line.
-5. If they choose to wait, check to see if it is in the hours of operation and if anyone is available. If no one is currently available, put the caller in the callback queue.
-6. If they select the callback queue, place the customer in a callback queue.
-7. If they are connected to the emergency line, look up who is on call and connect the customer to that person.  If they're unable to connect, reach out to someone else.
-8. If the person choose to answer the survey, call the person back to answer a satisfaction survey.
+1. A fully working instance of Connect
+2. A fully voiced IVR flow that will recognize incoming calls, offer personalized greetings and adapt based on user interaction history.
+
+## What services are we going to use?
+1. Connect as the Contact Center solution and backbone for the other services
+2. A DynamoDB table to store user information 
+3. Lambda functions to store and retrieve user information
+4. S3 to store conversation data and call metadata
+5. Cloudwatch to monitor and debug the solution
+6. Polly to voice IVR dialogue
+7. (optional) Lex for basic chatbot functionality
 
 ## Prepare the Environment (if not already done)
 
