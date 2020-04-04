@@ -27,33 +27,6 @@
 8. Review and Create the instance.
 9. Once the instance is created, select Get Started.
 
-### Launch an Amazon Lex Bot
-1. Import a Chat Bot
-2. Open the Amazon Lex console.
-3. Cancel out of the default getting started page.
-4. Under Actions, select Import.
-5. Upload the ConnectBot.zip file.
-6. Click into the newly created bot and select Build.
-7. Publish the bot as ConnectBot.
-
-### Launch a the serverless backend
-1.	Go to the CloudFormation service and launch a stack.
-2.	Select Template is ready and upload the full-template.yml file in this repo.
-3.	Name the stack and add the following information from your Connect instance into the parameters:
-   - UserPhoneNumber = your phone number
-4.	Keep the other settings as default.
-5.	Accept the Capabilities and transforms conditions and Create Stack.
-6.	What does this create for you?
-   - ContactHistoryTable: A DynamoDB table that will let you track who calls and the last time they called.
-   - ContactLookupLambda: A Lambda function that when given CustomerNumber as a parameter (when invoked from Connect) will look up the number in your table and return whether they are a new_caller or return_caller via attribute ContactStatus.
-   - ContactRouterLambda: A Lambda function that will return a primary contact and escalation contact (your phone number) via attributes TargetContact and EscalationContact.
-   - HotMessageTable: A DynamoDB table that will let you store hot messages to be played out to the user dynamically.
-   - GetHotMessageLambda: A Lambda function that can return any active hot message.
-   - OutboundDialQueue: An SQS Queue that stores people queued for an automated outbound contact.
-   - PutContactinQueueLambda: A Lambda function that puts a contact in the outbound dial queue when given CustomerNumber as a parameter from Connect.
-   - InitiateOutboundDialLambda: A Lambda function that uses the SQS Queue to trigger an automated outbound dial.
-   - Relevant IAM roles and policies
-
 ### Give Amazon Connect permission to call resources
 1. Navigate to the Amazon Connect service.
 2. Select the Amazon Connect instance created earlier.
