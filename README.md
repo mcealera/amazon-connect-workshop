@@ -1,8 +1,8 @@
 # Intro to Amazon Connect
 
 ## What are we going to build?
-1. A fully working instance of Connect
-2. A fully voiced IVR flow that will recognize incoming calls, offer personalized greetings and adapt based on user interaction history.
+1. A working instance of Connect
+2. A voiced IVR flow that will recognize incoming calls, offer personalized greetings and adapt based on user interaction history.
 
 ## What services are we going to use?
 1. Connect as the Contact Center solution and backbone for the other services
