@@ -78,11 +78,11 @@
 
 # Building On the Basics
 
-## Integrating AWS Lambda and DynamoDB
-
-### Building a personalized greeting
+## Building a personalized greeting - Integrating AWS Lambda and DynamoDB
 
 We will use DynamoDB table and store our name and telephone number. For every call, a Lambda function will lookup the calling number in the table and, if found, will return the name. We will use Polly to greet the caller by name.  
+
+### Creating the DynamoDB table
 
 1. Log into the Amazon console.
 2. Navigate to Services > DynamoDB
@@ -90,6 +90,41 @@ We will use DynamoDB table and store our name and telephone number. For every ca
 
 ![](images/customers.png)
 
+4. Click Create.
+5. Add your name and phone number as a new item in the customers table. The phone number should contain the country code (e.g. +352691997777)
+
+### Creating an IAM role used by Lambda to access DynamoDB
+
+1. Log into the Amazon console.
+2. Navigate to Services > IAM > Roles
+3. Click Create Role
+4. Choose AWS Service as the type of trusted entity and Lambda as the use case. 
+5. Click Next: Permissions
+6. Search for and select AmazonDynamoDBFullAccess. Click Next.
+7. Enter a name (e.g. "ConnectDDBLambdaRole") and click Create Role.
+
+
+### Creating the getCustomer Lambda
+
+1. Log into the Amazon console.
+2. Navigate to Services > Lambda
+3. Click Create Function. If you have never used Lambda, you will get a slightly different get started screen - in this case, select Author from scratch.
+4. Enter a name. Select Python 3.7 as the runtime. For permissions, use an existing role and select the role you created during the previous step.
+5. Use the following code:
+
+```python
+import boto3
+
+def lambda_handler(event, context):
+
+    dynamodb = boto3.resource('dynamodb')
+
+    table = dynamodb.Table('customers')
+
+    response = table.get_item(Key={'customerId':event['Details']['ContactData']['CustomerEndpoint']['Address']})
+
+    return response['Item']
+```
 
 ### Using Amazon Lex as a Conversational Router
 
