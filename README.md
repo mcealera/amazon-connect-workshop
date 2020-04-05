@@ -27,7 +27,7 @@
 8. Review and Create the instance.
 9. Once the instance is created, select Get Started.
 
-![](images/Screenshot 2020-04-05 at 19.50.51.png)
+![](images/success.png)
 
 ### Give Amazon Connect permission to call resources
 1. Navigate to the Amazon Connect service.
