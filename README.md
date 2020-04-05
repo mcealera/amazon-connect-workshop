@@ -1,4 +1,4 @@
-# Intro to Amazon Connect
+# 1. Intro to Amazon Connect
 
 ## What are we going to build?
 1. A working instance of Connect
@@ -30,7 +30,7 @@
 ![](images/success.png)
 
 
-# Getting Started with Amazon Connect
+# 2. Getting Started with Amazon Connect
 
 1. Access the instance.
    1. Navigate to the Amazon Connect access URL
@@ -45,7 +45,7 @@
 
 ![](images/makeacall.png)
 
-# Create your first Contact Flow
+# 3. Create your first Contact Flow
 
 ![](images/contactflow.png)
 
@@ -76,7 +76,7 @@
 1. Wait a few moments and give yourself a call.
 2. Notice that when a customer is put into a queue, they are really put into the Default customer queue.  If you want to change the experience, you can.  You can also build things like interruptible queue flows.  Similarly, the agent (you) heard the Default agent whisper.  Whispers are used to share information to only one side of the conversation.
 
-# Building On the Basics
+# 4. Building On the Basics
 
 ## Building a personalized greeting - Integrating AWS Lambda and DynamoDB
 
@@ -125,6 +125,17 @@ def lambda_handler(event, context):
 
     return response['Item']
 ```
+
+### Granting permissions for Lambda in Connect
+
+1. Log into the Amazon console.
+2. Navigate to Services > Connect. Select your Connect instance.
+3. Select Contact Flows
+4. Scroll down to the Lambda section and add the getCustomer function you just created. Make sure to click +Add Lambda Function!
+
+### Update the flow
+
+
 
 ### Using Amazon Lex as a Conversational Router
 
