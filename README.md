@@ -29,16 +29,6 @@
 
 ![](images/success.png)
 
-### Give Amazon Connect permission to call resources
-1. Navigate to the Amazon Connect service.
-2. Select the Amazon Connect instance created earlier.
-3. Select Contact flows from the menu on the left.
-4. Under the Amazon Lex section, select and add the Amazon Lex bot that was imported.
-5. Under the AWS Lambda section, select and add the Lambda functions created by the Cloudformation template.
-   - ContactLookupLambda
-   - ContactRouterLambda
-   - GetHotMessage
-   - InitiateOutboundDialLambda
 
 # Getting Started with Amazon Connect
 
@@ -46,11 +36,12 @@
    1. Navigate to the Amazon Connect access URL
    2. Connect with the Username and Password for the admin account.
 2. Once you&#39;ve entered the Amazon Connect application, select &quot;Let&#39;s go&quot;.
-3. Claim your phone number. Select a US (+1) Direct Dial number and click Next.
-4. You can port your own US phone number to Amazon Connect if you&#39;d like to replace existing phone numbers.
-5. Wait a minute or so.  Meanwhile, let&#39;s review user management, queues, and routing profiles.
+3. Claim your phone number. The country should be the same as where your billing address is. Select Direct Dial number and click Next.
+![](images/phone_number.png)
+5. Wait a minute or so.  
 6. Give yourself a call! Amazon Connect comes with a number of example contact flows to demonstrate different functionalities.
-7.  Test them out.
+(Optional) Choose 1 > 1 > 1 in the IVR to get transfered to an agent and make the web client ring!
+![](images/makeacall.png)
 
 ## Queues, Callbacks, and Hours of Operation
 
