@@ -45,7 +45,7 @@
 
 ![](images/makeacall.png)
 
-### Create your first Contact Flow
+# Create your first Contact Flow
 
 ![](images/contactflow.png)
 
@@ -76,47 +76,20 @@
 1. Wait a few moments and give yourself a call.
 2. Notice that when a customer is put into a queue, they are really put into the Default customer queue.  If you want to change the experience, you can.  You can also build things like interruptible queue flows.  Similarly, the agent (you) heard the Default agent whisper.  Whispers are used to share information to only one side of the conversation.
 
-### Creating a Callback Contact Flow – Import a Contact Flow
-
-![](images/3_TransferToCallbackQueue.png)
-
-1. Under Routing, select Contact Flows.
-2. Select create contact flow.
-3. In the upper right next to the Save button, select Import flow (beta).
-4. Upload the TransferToCallbackQueue file from the contact-flows folder in the repository.
-5. Modify the Set working queue module to select the BasicQueue and save.
-6. Click through the modules to understand how the pieces work together.
-7. Save, Publish, and test the TransferToCallbackQueue contact flow like your TransferToQueue contact flow.  Notice that when connected using the callback queue, the caller heard the Default outbound contact flow.
-
-### Using Hours of Operation
-
-![](images/4_InboundCallRouter.png)
-
-1. Under Routing, select Contact Flows.
-2. Select create contact flow.
-3. Enter the name InboundCallRouter.
-4. Under Branch, select Check hours of operation. Select Basic Hours.
-5. Build out the Error flow with error message and termination.
-6. Under Branch, select Check staffing. Under Status to check, select Available. Optionally select the basic queue. Link this module to Check hours of operation&#39;s In Hours module. Link the error option.
-7. Under Terminate/Transfer, select Transfer to flow. Select your TransferToQueue contact flow and save. Link this to the True output of Check Staffing and the error path.
-8. Add a Play prompt module that says &quot;There is currently no one ready to accept your call.  Let me put you in the callback queue so you don&#39;t have to wait on hold&quot; and link this to the False output of Check Staffing.
-9. Under Terminate/Transfer, select Transfer to flow. Select your TransferToCallbackQueue contact flow and save. Link this to your prompt and the error path.
-10. Add a Play prompt module that says &quot;We are currently closed.  Please call again later.&quot;  Link this to the Out of Hours option and terminate.
-11. Save, Publish, and Update your phone number&#39;s Contact Flow.
-12. Now you can test how the caller is routed when you are Available or Unavailable in the CCP. Similarly, if you can change the Basic Hours of operation to see how users are routed.
-
 # Building On the Basics
 
-## Integrating AWS Lambda and External Transfers
+## Integrating AWS Lambda and DynamoDB
 
-### Building an On Call Contact Flow
+### Building a personalized greeting
 
-![](images/5_OnCallFlow.png)
+We will use DynamoDB table and store our name and telephone number. For every call, a Lambda function will lookup the calling number in the table and, if found, will return the name. We will use Polly to greet the caller by name.  
 
-1. Create a contact flow and Import the OnCallFlow from the contact-flows folder.
-2. Update the Invoke AWS Lambda function module to call a lambda function that looks like ContactRouterLambda and save the module
-3. Update the Get customer input module to select the Lex bot in the account and save.
-4. Save, Publish, and test the OnCallFlow contact flow like your TransferToQueue contact flow.  The Lambda function we&#39;re invoking is picking up two contacts from a backend system and using that to dynamically route to another individual.  Look at the ContactRouterLambda to see how we do that.
+1. Log into the Amazon console.
+2. Navigate to Services > DynamoDB
+3. Click 'Create Table'. Name the table "customers" and use a "phone" field as the primary key.
+
+![](images/customers.png)
+
 
 ### Using Amazon Lex as a Conversational Router
 
