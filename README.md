@@ -37,17 +37,17 @@
    2. Connect with the Username and Password for the admin account.
 2. Once you&#39;ve entered the Amazon Connect application, select &quot;Let&#39;s go&quot;.
 3. Claim your phone number. The country should be the same as where your billing address is. Select Direct Dial number and click Next.
+
 ![](images/phone_number.png)
 5. Wait a minute or so.  
 6. Give yourself a call! Amazon Connect comes with a number of example contact flows to demonstrate different functionalities.
 (Optional) Choose 1 > 1 > 1 in the IVR to get transfered to an agent and make the web client ring!
-![](images/makeacall.png)
 
-## Queues, Callbacks, and Hours of Operation
+![](images/makeacall.png)
 
 ### Create your first Contact Flow
 
-![](images/1_TransferToQueue.png)
+![](images/contactflow.png)
 
 1. Under Routing, select Contact Flows.
 2. Select create contact flow.
@@ -56,6 +56,9 @@
 5. Click into the module, select Text to speech and enter the text &quot;I&#39;m putting you in the queue&quot;.
 6. Under Set, add a Set working queue module and link it to the Play prompt module.
 7. Click into the module and select the BasicQueue.
+
+![](images/1_TransferToQueue.png)
+
 8. Under Terminate/Transfer add a Transfer to Queue module and link it to the Success option of the Set working queue module.
 9. Add two more Play prompt modules. Make one say &quot;Something went wrong. Try again later&quot; and the other &quot;I&#39;m sorry. It seems our queue is at capacity. Try again later&quot;.
 10. Link the error message to the Error options on set working queue, Transfer to Queue, and the at capacity message.
