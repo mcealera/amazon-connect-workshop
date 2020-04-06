@@ -83,7 +83,7 @@
 
 We will use DynamoDB table and store our name and telephone number. For every call, a Lambda function will lookup the calling number in the table and, if found, will return the name. We will use Polly to greet the caller by name.  
 
-### Creating the DynamoDB table
+### 4.1 Creating the DynamoDB table
 
 1. Log into the Amazon console.
 2. Navigate to Services > DynamoDB
@@ -98,7 +98,7 @@ We will use DynamoDB table and store our name and telephone number. For every ca
 5. Create a new item. Add your phone number and a "name" field of String type. Fill in your name.
 The phone number should contain the country code (e.g. +352691997777)
 
-### Creating an IAM role used by Lambda to access DynamoDB
+### 4.2 Creating an IAM role used by Lambda to access DynamoDB
 
 1. Log into the Amazon console.
 2. Navigate to Services > IAM > Roles
@@ -109,7 +109,7 @@ The phone number should contain the country code (e.g. +352691997777)
 7. Enter a name (e.g. "ConnectDDBLambdaRole") and click Create Role.
 
 
-### Creating the getCustomer Lambda
+### 4.3 Creating the getCustomer Lambda
 
 1. Log into the Amazon console.
 2. Navigate to Services > Lambda
@@ -132,14 +132,14 @@ def lambda_handler(event, context):
 ```
 6. Click Save.
 
-### Granting permissions for Lambda in Connect
+### 4.4 Granting permissions for Lambda in Connect
 
 1. Log into the Amazon console.
 2. Navigate to Services > Connect. Select your Connect instance.
 3. Select Contact Flows
 4. Scroll down to the Lambda section and add the getCustomer function you just created. Make sure to click +Add Lambda Function!
 
-### Update the flow
+### 4.5 Update the flow
 
 1. Log into the Connect dashboard.
 2. Navigate to Routing > Flows and open TransferToQueue
@@ -156,6 +156,46 @@ def lambda_handler(event, context):
 7. Wait a couple of minutes and give yourself another call. You should not be greeted by name!.
 8. If you do not receive the greeting, you can troubleshoot your flow using CloudWatch logs! Navigate to Services > CloudWatch > Logs > Log Groups > (aws/connect/(yourConnectInstanceName).
 
+# 5. More personalization - Store user interactions
+
+In this section we will use a Lambda to update DynamoDB based on the choices the user makes in the IVR - a language selection. We will use this information on subsequent calls to add another layer of personalization to our greeting.
+
+### 5.1 Creating the updateCustomer Lambda
+
+1. Perform the same steps as for the getCustomer function, but use this code:
+
+```python
+import boto3
+
+def lambda_handler(event, context):
+
+    dynamodb = boto3.resource('dynamodb')
+    
+    intent = event['Details']['Parameters']['intent']
+
+    table = dynamodb.Table('customers')
+    
+    if intent: table.update_item(
+    Key={
+        'phone': event['Details']['ContactData']['CustomerEndpoint']['Address']
+    },
+    UpdateExpression='SET lastIntent = :val1',
+    ExpressionAttributeValues={
+        ':val1': intent
+    }
+)
+
+    response = table.get_item(Key={'customerId':event['Details']['ContactData']['CustomerEndpoint']['Address']})
+
+    return response['Item']
+```
+
+2. Save the function and add the necessary permissions in Connect (see 4.4).
+
+### 5.2 Update the flow
+
+1. Open the TransferToQueue
+2. 
 ### Using Amazon Lex as a Conversational Router
 
 ![](images/6_InboundLexRouter.png)
