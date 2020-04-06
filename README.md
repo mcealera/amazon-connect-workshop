@@ -64,17 +64,20 @@
 10. Link the error message to the Error options on set working queue, Transfer to Queue, and the at capacity message.
 11. Under Terminate/Transfer, add a Disconnect/Hang up module and link your final messages to it.
 12. Save and then publish.
+13. Under phone numbers, select the number you&#39;ve claimed.
+
+![](images/phone2.png)
+
+14. Under Contact flow / IVR, select the TransferToQueue contact flow you just created and save.
 
 ### Test it out!
 
-1. Under phone numbers, select the number you&#39;ve claimed.
-2. Under Contact flow / IVR, select the TransferToQueue contact flow you just created and save.
-3. Open up the CCP by clicking the phone icon in the upper right hand corner.
+1. Open up the CCP by clicking the phone icon in the upper right hand corner.
 
 ![](images/2_CCP.png)
 
-1. Wait a few moments and give yourself a call.
-2. Notice that when a customer is put into a queue, they are really put into the Default customer queue.  If you want to change the experience, you can.  You can also build things like interruptible queue flows.  Similarly, the agent (you) heard the Default agent whisper.  Whispers are used to share information to only one side of the conversation.
+2. Wait a few moments and give yourself a call.
+3. Notice that when a customer is put into a queue, they are really put into the Default customer queue.  If you want to change the experience, you can.  You can also build things like interruptible queue flows.  Similarly, the agent (you) heard the Default agent whisper.  Whispers are used to share information to only one side of the conversation.
 
 # 4. Building On the Basics
 
