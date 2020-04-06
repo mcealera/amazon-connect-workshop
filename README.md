@@ -79,9 +79,7 @@
 2. Wait a few moments and give yourself a call.
 3. Notice that when a customer is put into a queue, they are really put into the Default customer queue.  If you want to change the experience, you can.  You can also build things like interruptible queue flows.  Similarly, the agent (you) heard the Default agent whisper.  Whispers are used to share information to only one side of the conversation.
 
-# 4. Building On the Basics
-
-## Building a personalized greeting - Integrating AWS Lambda and DynamoDB
+# 4. Building a personalized greeting - Integrating AWS Lambda and DynamoDB
 
 We will use DynamoDB table and store our name and telephone number. For every call, a Lambda function will lookup the calling number in the table and, if found, will return the name. We will use Polly to greet the caller by name.  
 
