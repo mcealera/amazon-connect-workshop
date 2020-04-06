@@ -64,7 +64,7 @@
 10. Link the error message to the Error options on set working queue, Transfer to Queue, and the at capacity message.
 11. Under Terminate/Transfer, add a Disconnect/Hang up module and link your final messages to it.
 12. Save and then publish.
-13. Under phone numbers, select the number you&#39;ve claimed.
+13. Under Routing > Phone numbers, select the number you&#39;ve claimed.
 
 ![](images/phone2.png)
 
@@ -114,8 +114,8 @@ The phone number should contain the country code (e.g. +352691997777)
 1. Log into the Amazon console.
 2. Navigate to Services > Lambda
 3. Click Create Function. If you have never used Lambda, you will get a slightly different get started screen - in this case, select Author from scratch.
-4. Enter a name. Select Python 3.7 as the runtime. For permissions, use an existing role and select the role you created during the previous step.
-5. Use the following code:
+4. Enter a name. Select Python 3.7 as the runtime. For permissions, use an existing role and select the role you created during the previous step. Click Create.
+5. Navigate to the Function Code section and paste the following code:
 
 ```python
 import boto3
@@ -126,10 +126,11 @@ def lambda_handler(event, context):
 
     table = dynamodb.Table('customers')
 
-    response = table.get_item(Key={'customerId':event['Details']['ContactData']['CustomerEndpoint']['Address']})
+    response = table.get_item(Key={'phone':event['Details']['ContactData']['CustomerEndpoint']['Address']})
 
     return response['Item']
 ```
+6. Click Save.
 
 ### Granting permissions for Lambda in Connect
 
@@ -140,7 +141,11 @@ def lambda_handler(event, context):
 
 ### Update the flow
 
-
+1. Log into the Connect dashboard.
+2. Navigate to Routing > Flows and open TransferToQueue
+3. Under Set, find the Set Logging Behavior and insert it right after the Start block.
+4. Under Integrate, find the Invoke AWS Lambda Function and insert it after the Logging behavior. Click the block and select the getCustomers Lambda and increase the timeout to 8 seconds. If you cannot see the Lambda, make sure you granted the correct permissions as instructed in the previous section.
+5. Add another Play block after the Invoke Lambda block. In the Text to speech section add "Hello $.External.name". Link the success endpoint of the Lambda block to the new Play block. Link the error endpoint to the following Play block.
 
 ### Using Amazon Lex as a Conversational Router
 
