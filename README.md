@@ -92,7 +92,11 @@ We will use DynamoDB table and store our name and telephone number. For every ca
 ![](images/customers.png)
 
 4. Click Create.
-5. Add your name and phone number as a new item in the customers table. The phone number should contain the country code (e.g. +352691997777)
+
+![](images/dbitem.png)
+
+5. Create a new item. Add your phone number and a "name" field of String type. Fill in your name.
+The phone number should contain the country code (e.g. +352691997777)
 
 ### Creating an IAM role used by Lambda to access DynamoDB
 
