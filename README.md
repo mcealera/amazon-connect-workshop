@@ -145,7 +145,16 @@ def lambda_handler(event, context):
 2. Navigate to Routing > Flows and open TransferToQueue
 3. Under Set, find the Set Logging Behavior and insert it right after the Start block.
 4. Under Integrate, find the Invoke AWS Lambda Function and insert it after the Logging behavior. Click the block and select the getCustomers Lambda and increase the timeout to 8 seconds. If you cannot see the Lambda, make sure you granted the correct permissions as instructed in the previous section.
+
+![](images/lambdaResponse.png)
+
 5. Add another Play block after the Invoke Lambda block. In the Text to speech section add "Hello $.External.name". Link the success endpoint of the Lambda block to the new Play block. Link the error endpoint to the following Play block.
+
+![](images/flow2.png)
+
+6. Click Publish.
+7. Wait a couple of minutes and give yourself another call. You should not be greeted by name!.
+8. If you do not receive the greeting, you can troubleshoot your flow using CloudWatch logs! Navigate to Services > CloudWatch > Logs > Log Groups > (aws/connect/(yourConnectInstanceName).
 
 ### Using Amazon Lex as a Conversational Router
 
@@ -166,7 +175,6 @@ def lambda_handler(event, context):
 1. Create a new contact flow and import the CallerSurvey contact flow.
 2. Modify the Get customer input module to point to the ConnectBot in the account.
 3. Save and Publish (test if you&#39;d like).
-4. Take a note of the Contact Flow ID.  It is the last 36 character string in the URL.  The URL is formatted like so: https://[CONNECTINSTANCENAME].awsapps.com/connect/contact-flows/edit?id=arn:aws:connect::[ACCOUNTNUMBER]:instance/[INSTANCEID]/contact-flow/[CONTACTFLOWID]
 
 ## Putting it all Together
 
