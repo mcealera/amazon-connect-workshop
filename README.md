@@ -79,9 +79,13 @@
 2. Wait a few moments and give yourself a call.
 3. Notice that when a customer is put into a queue, they are really put into the Default customer queue.  If you want to change the experience, you can.  You can also build things like interruptible queue flows.  Similarly, the agent (you) heard the Default agent whisper.  Whispers are used to share information to only one side of the conversation.
 
+
+
 # 4. Building a personalized greeting - Integrating AWS Lambda and DynamoDB
 
 We will use DynamoDB table and store our name and telephone number. For every call, a Lambda function will lookup the calling number in the table and, if found, will return the name. We will use Polly to greet the caller by name.  
+
+
 
 ### 4.1 Creating the DynamoDB table
 
@@ -132,12 +136,16 @@ def lambda_handler(event, context):
 ```
 6. Click Save.
 
+
+
 ### 4.4 Granting permissions for Lambda in Connect
 
 1. Log into the Amazon console.
 2. Navigate to Services > Connect. Select your Connect instance.
 3. Select Contact Flows
 4. Scroll down to the Lambda section and add the getCustomer function you just created. Make sure to click +Add Lambda Function!
+
+
 
 ### 4.5 Update the flow
 
@@ -156,9 +164,13 @@ def lambda_handler(event, context):
 7. Wait a couple of minutes and give yourself another call. You should not be greeted by name!.
 8. If you do not receive the greeting, you can troubleshoot your flow using CloudWatch logs! Navigate to Services > CloudWatch > Logs > Log Groups > (aws/connect/(yourConnectInstanceName).
 
+
+
 # 5. More personalization - Store user interactions
 
-In this section we will use a Lambda to update DynamoDB based on the choices the user makes in the IVR - a language selection. We will use this information on subsequent calls to add another layer of personalization to our greeting.
+In this section we will use a Lambda to update DynamoDB based on the choices the user makes in the IVR - in this case, a language selection. We will use this information on subsequent calls to add another layer of personalization to our greeting.
+
+
 
 ### 5.1 Creating the updateCustomer Lambda
 
@@ -192,7 +204,11 @@ def lambda_handler(event, context):
 
 2. Save the function and add the necessary permissions in Connect (see 4.4).
 
+
+
 ### 5.2 Update the flow
+
+![](images/flow3.png)
 
 1. Open the TransferToQueue
 2. From the Interact section, add a Get Customer Input block. Add two options, English and Spanish.
@@ -214,10 +230,12 @@ $.External.name
 ![](images/ssml.png)
 
 6. Link the blocks as shown below and Publish the flow.
+7. Wait for a couple of minutes and call in.
+8. (Optional) You can monitor your user database and 'reset' the intent from DynamoDB (Services > DynamoDB > Tables > customers > Items.
 
-![](images/flow3.png)
 
-### Using Amazon Lex as a Conversational Router
+
+# 6. Using Amazon Lex as a Conversational Router
 
 ![](images/6_InboundLexRouter.png)
 
