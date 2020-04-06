@@ -195,7 +195,28 @@ def lambda_handler(event, context):
 ### 5.2 Update the flow
 
 1. Open the TransferToQueue
-2. 
+2. From the Interact section, add a Get Customer Input block. Add two options, English and Spanish.
+3. From the Set section, add two Set Contact Attributes blocks. Set the Destination key for both as 'intent'. For value, use 'english' for one block and 'spanish' for the other.
+3. From the Integrate block, add a Integrate Lambda block. Select the updateCustomer Lambda. For function input parameters select 'Use Attribute' and select Destination key: intent, Type: User Defined, Attribute: intent.
+
+![](images/updateLambda.png)
+
+4. From the Branch section, select Check Contact Aattributes block. Select Type: External, Attribue: lastIntent. Add two conditions to check: Contains: english and Contains: spanish
+5. Add 2 more Play blocks. One of them will be an exact copy of the existing greeting, while the other one will be the spanish greeting. For the spanish one, we will use SSML input to ask Polly to use Spanish when voicing the text. For this block, the input will be as follows:
+
+```
+<speak> 
+<lang xml:lang="es-ES">Buenos Dias </lang>
+<break time="1s"/>
+$.External.name 
+</speak>
+```
+![](images/ssml.png)
+
+6. Link the blocks as shown below and Publish the flow.
+
+![](images/flow3.png)
+
 ### Using Amazon Lex as a Conversational Router
 
 ![](images/6_InboundLexRouter.png)
