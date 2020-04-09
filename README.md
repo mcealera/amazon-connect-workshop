@@ -196,7 +196,7 @@ def lambda_handler(event, context):
     }
 )
 
-    response = table.get_item(Key={'customerId':event['Details']['ContactData']['CustomerEndpoint']['Address']})
+    response = table.get_item(Key={'phone':event['Details']['ContactData']['CustomerEndpoint']['Address']})
 
     return response['Item']
 ```
@@ -246,6 +246,10 @@ In this section we will create a simple Lex box to replace the DTMF choices (pre
 1. Open the AWS Console and navigate to Services > Amazon Lex
 2. Click Create > custom bot. Give it a name, select Joanna as the voice, set 2 min timeout and select 'no' for sentinemt analisys and COPPA notice.
 3. Add a new Intent. Name it 'cats' and add a few sample utterences. Click Save Intent.
+
+![](images/intent1.png)
+![](images/intent2.png)
+
 4. Add a similar intents for 'dogs', 'yes' and 'no'.
 5. Click Build and wait a few seconds.
 6. Click Publish. Input an alias and click Publish.
@@ -258,8 +262,13 @@ In this section we will create a simple Lex box to replace the DTMF choices (pre
 
 ### 6.3 Update the flow
 
+![](images/flow5.png)
+
 1. Navigate to the Connect console and open the TransferToQueue flow
 2. Click on the dogs/cats customer input block. Change the prompt to 'Would like to know more about dogs or are you a cats person ?'. Choose Amazon Lex instead of DTMF. Select the bot you created and add two intents: 'dogs' and 'cats'. Click save.
 Link the dogs/cats endpoints to their respective Set Attribute blocks.
+
+![](images/getIntent2.png)
+
 3. Similarly, update the yes/no customer input block to use the same bot, but the yes/no intents.
 4. Publish the flow, wait a couple of minutes and call it to test the updates.
