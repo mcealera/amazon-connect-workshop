@@ -9,8 +9,6 @@ If if you get stuck, the Connect flows and Lex bot are provided as zipped resour
 
 ## What services are we going to use?
 
-![](images/connect.svg)
-
 1. Connect as the Contact Center solution and backbone for the other services
 2. A DynamoDB table to store user information 
 3. Lambda functions to store and retrieve user information
@@ -18,6 +16,8 @@ If if you get stuck, the Connect flows and Lex bot are provided as zipped resour
 5. Cloudwatch to monitor and debug the solution
 6. Polly to voice IVR dialogue
 7. Lex for basic chatbot functionality
+
+![](images/connect.svg)
 
 ## Prepare the Environment (if not already done)
 
