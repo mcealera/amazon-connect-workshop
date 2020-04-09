@@ -1,5 +1,6 @@
 For this workshop you will need an AWS account and about 60 minutes. 
 If if you get stuck, the Connect flows and Lex bot are provided as zipped resources.
+Don't forget to remove the resources at the end of the workshop, to avoid unnecessary charges.
 
 # 1. Intro to Amazon Connect
 
