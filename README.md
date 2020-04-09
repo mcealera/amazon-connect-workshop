@@ -211,6 +211,9 @@ def lambda_handler(event, context):
 
 1. Open the TransferToQueue flow.
 2. From the Interact section, add a Get Customer Input block. Add two options, Dogs and Cats.
+
+![](images/getInput1.png)
+
 3. From the Set section, add two Set Contact Attributes blocks. Set the Destination key for both as 'intent'. For value, use 'dogs' for one block and 'cats' for the other.
 3. From the Integrate block, add a Integrate Lambda block. Select the updateCustomer Lambda. For function input parameters select 'Use Attribute' and select Destination key: intent, Type: User Defined, Attribute: intent.
 
@@ -222,10 +225,17 @@ def lambda_handler(event, context):
 
 ### 5.3 Update the flow to include the previous interactions
 
+![](images/flow4.png)
+
 1. Open the TransferToQueue flow.
 2. From the Branch section, select the Check contact Attributes block. Check the 'lastIntent' external attribute with two conditions: contains 'dogs' and contains 'cats'.
+
+![](images/checkAttributes.png)
+
 3. Add two play prompts for the 2 cases: cats or dogs. The prompts could say: 'The last time you called, it was about cats/dogs'.
-4. Add another Get Customer Input block from the Interact section. This will ask the customer if he/she whishes to change the previous selection or make a new one. If the customers answers yes, the 
+4. Add another Get Customer Input block from the Interact section. This will ask the customer if he/she whishes to change the previous selection or make a new one. If the customer wants to change the selection, route to the dogs/cats selection. If not, route to queue.
+5. Link the blocks as showin in the image.
+6. Publish the flow, wait a couple of minutes and call in to test it.
 
 # 6. Using Amazon Lex as a Conversational Router
 
