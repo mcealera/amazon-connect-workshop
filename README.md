@@ -7,6 +7,8 @@ If if you get stuck, the Connect flows and Lex bot are provided as zipped resour
 1. A working instance of Connect
 2. A voiced IVR flow that will recognize incoming calls, offer personalized greetings and adapt based on user interaction history.
 
+![](images/connect.svg)
+
 ## What services are we going to use?
 1. Connect as the Contact Center solution and backbone for the other services
 2. A DynamoDB table to store user information 
