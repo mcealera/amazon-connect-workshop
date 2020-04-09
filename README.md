@@ -268,7 +268,7 @@ In this section we will create a simple Lex box to replace the DTMF choices (pre
 2. Click on the dogs/cats customer input block. Change the prompt to 'Would like to know more about dogs or are you a cats person ?'. Choose Amazon Lex instead of DTMF. Select the bot you created and add two intents: 'dogs' and 'cats'. Click save.
 Link the dogs/cats endpoints to their respective Set Attribute blocks.
 
-![](images/getIntent2.png)
+![](images/getInput2.png)
 
 3. Similarly, update the yes/no customer input block to use the same bot, but the yes/no intents.
 4. Publish the flow, wait a couple of minutes and call it to test the updates.
