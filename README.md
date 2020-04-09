@@ -168,8 +168,7 @@ def lambda_handler(event, context):
 
 # 5. More personalization - Store user interactions
 
-In this section we will use a Lambda to update DynamoDB based on the choices the user makes in the IVR - in this case, a language selection. We will use this information on subsequent calls to add another layer of personalization to our greeting.
-
+In this section we will use a Lambda to update the DynamoDB table we created previously with the choices the user makes in the IVR. We will use this information on subsequent calls to add another layer of personalization to our greeting.
 
 
 ### 5.1 Creating the updateCustomer Lambda
@@ -206,34 +205,27 @@ def lambda_handler(event, context):
 
 
 
-### 5.2 Update the flow
+### 5.2 Update the flow to store user interactions
 
 ![](images/flow3.png)
 
-1. Open the TransferToQueue
-2. From the Interact section, add a Get Customer Input block. Add two options, English and Spanish.
-3. From the Set section, add two Set Contact Attributes blocks. Set the Destination key for both as 'intent'. For value, use 'english' for one block and 'spanish' for the other.
+1. Open the TransferToQueue flow.
+2. From the Interact section, add a Get Customer Input block. Add two options, Dogs and Cats.
+3. From the Set section, add two Set Contact Attributes blocks. Set the Destination key for both as 'intent'. For value, use 'dogs' for one block and 'cats' for the other.
 3. From the Integrate block, add a Integrate Lambda block. Select the updateCustomer Lambda. For function input parameters select 'Use Attribute' and select Destination key: intent, Type: User Defined, Attribute: intent.
 
 ![](images/updateLambda.png)
 
-4. From the Branch section, select Check Contact Aattributes block. Select Type: External, Attribue: lastIntent. Add two conditions to check: Contains: english and Contains: spanish
-5. Add 2 more Play blocks. One of them will be an exact copy of the existing greeting, while the other one will be the spanish greeting. For the spanish one, we will use SSML input to ask Polly to use Spanish when voicing the text. For this block, the input will be as follows:
-
-```
-<speak> 
-<lang xml:lang="es-ES">Buenos Dias </lang>
-<break time="1s"/>
-$.External.name 
-</speak>
-```
-![](images/ssml.png)
-
-6. Link the blocks as shown below and Publish the flow.
-7. Wait for a couple of minutes and call in.
-8. (Optional) You can monitor your user database and 'reset' the intent from DynamoDB (Services > DynamoDB > Tables > customers > Items.
+4. Link the blocks as shown below and Publish the flow.
+5. Wait for a couple of minutes and call in to test the new options. After making a selection, the DynamoDB should contain the last customer intent.You can monitor the 'customers' table in DynamoDB (Services > DynamoDB > Tables > customers > Items.
 
 
+### 5.3 Update the flow to include the previous interactions
+
+1. Open the TransferToQueue flow.
+2. From the Branch section, select the Check contact Attributes block. Check the 'lastIntent' external attribute with two conditions: contains 'dogs' and contains 'cats'.
+3. Add two play prompts for the 2 cases: cats or dogs. The prompts could say: 'The last time you called, it was about cats/dogs'.
+4. Add another Get Customer Input block from the Interact section. This will ask the customer if he/she whishes to change the previous selection or make a new one. If the customers answers yes, the 
 
 # 6. Using Amazon Lex as a Conversational Router
 
