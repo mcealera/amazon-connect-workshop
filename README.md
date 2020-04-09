@@ -239,34 +239,27 @@ def lambda_handler(event, context):
 
 # 6. Using Amazon Lex as a Conversational Router
 
-![](images/6_InboundLexRouter.png)
+In this section we will create a simple Lex box to replace the DTMF choices (press 1 for ...) in the IVR. Instead, the user will be able use his voice to make a selection. The bot will understand a few simple intents: 'cats', 'dogs', 'yes' and 'no'.
 
-1. Create a new contact flow called InboundLexRouter.
-2. Under Interact, add a Get customer input module. Add a Text to speech prompt. &quot;Would you like to wait on hold or be called back later when we are ready to serve you?&quot; Select Amazon Lex and the ConnectBot in the account. Add WaitOnHold, CallBack, and Emergency as Intents.
-3. Create an error flow.
-4. Under Terminate/Transfer, select Transfer to flow. Select your InboundCallRouter contact flow and save. Link this to the WaitOnHold output and the error path.
-5. Under Terminate/Transfer, select Transfer to flow. Select your TransferToCallbackQueue contact flow and save. Link this to the Callback output and the error path.
-6. Under Terminate/Transfer, select Transfer to flow. Select your OnCallFlow contact flow and save. Link this to the Emergency output and the error path.
-7. Save, Publish, and Test by pointing your phone number to the InboundLexRouter contact flow.
+### 6.1 Build the Lex bot
 
-### Using Amazon Connect and Amazon Lex for Outbound Surveys
+1. Open the AWS Console and navigate to Services > Amazon Lex
+2. Click Create > custom bot. Give it a name, select Joanna as the voice, set 2 min timeout and select 'no' for sentinemt analisys and COPPA notice.
+3. Add a new Intent. Name it 'cats' and add a few sample utterences. Click Save Intent.
+4. Add a similar intents for 'dogs', 'yes' and 'no'.
+5. Click Build and wait a few seconds.
+6. Click Publish. Input an alias and click Publish.
 
-![](images/7_CallerSurvey.png)
+### 6.2 Grant the necessary permissions in Connect
 
-1. Create a new contact flow and import the CallerSurvey contact flow.
-2. Modify the Get customer input module to point to the ConnectBot in the account.
-3. Save and Publish (test if you&#39;d like).
+1. Open the AWS Console and navigate to Services > Amazon Connect
+2. Select your Connect instance and navigate to Contact Flows
+3. In the Lex section, search for your bot and select + Add Lex bot
 
-## Putting it all Together
+### 6.3 Update the flow
 
-![](images/8_EntryPoint.png)
-1. Create a new contact flow and import the EntryPoint contact flow.
-2. Modify the first Invoke AWS Lambda function to ensure it is calling a lambda function that looks like GetHotMessageLambda.
-3. Modify the second Invoke AWS Lambda function to ensure it is calling a lambda function that looks like ContactLookupLambda.
-4. Modify the Get customer input module to point to the ConnectBot in the account.
-5. Modify the second Invoke AWS Lambda function to ensure it is calling a lambda function that looks like PutContactinQueueLambda.  Modify the OutboundContactFlowId parameter to be the contact flow ID of the survey contact flow.
-6. Modify the Transfer to flow module at the end of the contact flow to point to the InboundLexRouter contact flow.
-7. Save, Publish, and Test.
-
-# License
-This library is licensed under the MIT-0 License. See the LICENSE file.
+1. Navigate to the Connect console and open the TransferToQueue flow
+2. Click on the dogs/cats customer input block. Change the prompt to 'Would like to know more about dogs or are you a cats person ?'. Choose Amazon Lex instead of DTMF. Select the bot you created and add two intents: 'dogs' and 'cats'. Click save.
+Link the dogs/cats endpoints to their respective Set Attribute blocks.
+3. Similarly, update the yes/no customer input block to use the same bot, but the yes/no intents.
+4. Publish the flow, wait a couple of minutes and call it to test the updates.
