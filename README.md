@@ -1,3 +1,6 @@
+For this workshop you will need an AWS account and about 60 minutes. 
+If if you get stuck, the Connect flows and Lex bot are provided as zipped resources.
+
 # 1. Intro to Amazon Connect
 
 ## What are we going to build?
@@ -11,7 +14,7 @@
 4. S3 to store conversation data and call metadata
 5. Cloudwatch to monitor and debug the solution
 6. Polly to voice IVR dialogue
-7. (optional) Lex for basic chatbot functionality
+7. Lex for basic chatbot functionality
 
 ## Prepare the Environment (if not already done)
 
