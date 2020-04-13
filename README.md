@@ -148,7 +148,7 @@ def lambda_handler(event, context):
 ### 4.4 Granting permissions for Lambda in Connect
 
 1. Log into the Amazon console.
-2. Navigate to Services > Connect. Select your Connect instance.
+2. Navigate to Services > Amazon Connect. Select your Connect instance.
 3. Select Contact Flows
 4. Scroll down to the Lambda section and add the getCustomer function you just created. Make sure to click +Add Lambda Function!
 
@@ -279,3 +279,15 @@ Link the dogs/cats endpoints to their respective Set Attribute blocks.
 
 3. Similarly, update the yes/no customer input block to use the same bot, but the yes/no intents.
 4. Publish the flow, wait a couple of minutes and call it to test the updates.
+
+# 7. Clean-up
+
+1. Log into the Amazon console.
+2. Navigate to Services > Amazon Connect. 
+3. Click on the checkbox next to your Connect instance and click Remove.
+4. Navigate to Services > DynamoDB > Tables.
+5. Click on the checkbox next to your customers table and click Delete.
+6. Navigate to Services > Lambda.
+7. Click on the checkbox next to your get/updateCustomer functions and click Actions > Delete.
+8. Navigate Services > S3.
+9. Find the bucket created by Connect (default name looks like 'connect-9535c3748467'). Delete call recordings, if any.
