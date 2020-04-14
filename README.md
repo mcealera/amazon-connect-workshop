@@ -6,7 +6,7 @@ Don't forget to remove the resources at the end of the workshop, to avoid unnece
 
 ## What are we going to build?
 1. A working instance of Connect
-2. A voiced IVR flow that will recognize incoming calls, offer personalized greetings and adapt based on user interaction history.
+2. A voiced IVR flow that will recognize customers calling in based on their phone number, offer personalized greetings and adapt based on user interaction history.
 
 ## What services are we going to use?
 
