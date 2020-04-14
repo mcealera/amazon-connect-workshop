@@ -46,8 +46,8 @@ Don't forget to remove the resources at the end of the workshop, to avoid unnece
 3. Claim your phone number. The country should be the same as where your billing address is. Select Direct Dial number and click Next.
 
 ![](images/phone_number.png)
-5. Wait a minute or so.  
-6. Give yourself a call! Amazon Connect comes with a number of example contact flows to demonstrate different functionalities.
+4. Wait a minute or so.  
+5. Give yourself a call! Amazon Connect comes with a number of example contact flows to demonstrate different functionalities.
 (Optional) Choose 1 > 1 > 1 in the IVR to get transfered to an agent and make the web client ring!
 
 ![](images/makeacall.png)
