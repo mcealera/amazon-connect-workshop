@@ -79,18 +79,18 @@ Don't forget to remove the resources at the end of the workshop, to avoid unnece
 
 ### Test it out!
 
-1. Open up the CCP by clicking the phone icon in the upper right hand corner.
+15. Open up the CCP by clicking the phone icon in the upper right hand corner.
 
 ![](images/2_CCP.png)
 
-2. Wait a few moments and give yourself a call.
-3. Notice that when a customer is put into a queue, they are really put into the Default customer queue.  If you want to change the experience, you can.  You can also build things like interruptible queue flows.  Similarly, the agent (you) heard the Default agent whisper.  Whispers are used to share information to only one side of the conversation.
+16. Wait a few moments and give yourself a call.
+17. Notice that when a customer is put into a queue, they are really put into the Default customer queue.  If you want to change the experience, you can.  You can also build things like interruptible queue flows.  Similarly, the agent (you) heard the Default agent whisper.  Whispers are used to share information to only one side of the conversation.
 
 
 
 # 4. Building a personalized greeting - Integrating AWS Lambda and DynamoDB
 
-We will use DynamoDB table and store our name and telephone number. For every call, a Lambda function will lookup the calling number in the table and, if found, will return the name. We will use Polly to greet the caller by name.  
+We will use a DynamoDB table to store our name and telephone number. For every call, a Lambda function will lookup the calling number in the table and, if found, will return the name. We will use Polly to greet the caller by name.  
 
 
 
@@ -158,8 +158,8 @@ def lambda_handler(event, context):
 
 1. Log into the Connect dashboard.
 2. Navigate to Routing > Flows and open TransferToQueue
-3. Under Set, find the Set Logging Behavior and insert it right after the Start block.
-4. Under Integrate, find the Invoke AWS Lambda Function and insert it after the Logging behavior. Click the block and select the getCustomers Lambda and increase the timeout to 8 seconds. If you cannot see the Lambda, make sure you granted the correct permissions as instructed in the previous section.
+3. Under Set, find the Set Logging Behavior block and insert it right after the Start block.
+4. Under Integrate, find the Invoke AWS Lambda Function block and insert it after the Logging Behavior block. Click the block and select the getCustomers Lambda and increase the timeout to 8 seconds. If you cannot see the Lambda, make sure you granted the correct permissions as instructed in the previous section.
 
 ![](images/lambdaResponse.png)
 
@@ -168,14 +168,14 @@ def lambda_handler(event, context):
 ![](images/flow2.png)
 
 6. Click Publish.
-7. Wait a couple of minutes and give yourself another call. You should not be greeted by name!.
-8. If you do not receive the greeting, you can troubleshoot your flow using CloudWatch logs! Navigate to Services > CloudWatch > Logs > Log Groups > (aws/connect/(yourConnectInstanceName).
+7. Wait a couple of minutes and give yourself another call. You should now be greeted by name!.
+8. If you do not receive the greeting, you can troubleshoot your flow using CloudWatch logs. To access the logs, navigate to Services > CloudWatch > Logs > Log Groups > (aws/connect/(yourConnectInstanceName).
 
 
 
 # 5. More personalization - Store user interactions
 
-In this section we will use a Lambda to update the DynamoDB table we created previously with the choices the user makes in the IVR. We will use this information on subsequent calls to add another layer of personalization to our greeting.
+In this section we will use a Lambda to update the DynamoDB table we created previously with a choice the user makes in the IVR. We will use this information on subsequent calls to add another layer of personalization to our greeting.
 
 
 ### 5.1 Creating the updateCustomer Lambda
@@ -246,7 +246,7 @@ def lambda_handler(event, context):
 
 # 6. Using Amazon Lex as a Conversational Router
 
-In this section we will create a simple Lex box to replace the DTMF choices (press 1 for ...) in the IVR. Instead, the user will be able use his voice to make a selection. The bot will understand a few simple intents: 'cats', 'dogs', 'yes' and 'no'.
+In this section we will create a simple Lex box to replace the DTMF choices (press 1 for X, press 2 for Y ..) in the IVR. Instead, the user will be able use his voice to make a selection. The bot will understand a few simple intents: 'cats', 'dogs', 'yes' and 'no'.
 
 ### 6.1 Build the Lex bot
 
