@@ -229,8 +229,22 @@ def lambda_handler(event, context):
 4. Link the blocks as shown below and Publish the flow.
 5. Wait for a couple of minutes and call in to test the new options. After making a selection, the DynamoDB should contain the last customer intent.You can monitor the 'customers' table in DynamoDB (Services > DynamoDB > Tables > customers > Items.
 
+### 5.3 Update the flow to include the previous interactions 
 
-### 5.3 Update the flow to include the previous interactions
+### (Option 1 - shorter)
+
+![](images/updatedFlow.png)
+
+1. Open the TransferToQueue flow.
+2. Edit the greetings Play block. The new message should say 'Hello $.External.name. The last time you called, it was about $.External.lastIntent'
+
+![](images/updatedPrompt.png)
+
+3. Add another Get Customer Input block from the Interact section. This will ask the customer if he/she whishes to change the previous selection or make a new one. If the customer wants to change the selection, route to the dogs/cats selection. If not, route to queue.
+4. Link the blocks as showin in the image.
+5. Publish the flow, wait a couple of minutes and call in to test it.
+
+### (Option 2 - longer, handles no 'lastIntent')
 
 ![](images/flow4.png)
 
